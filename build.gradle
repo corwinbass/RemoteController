@@ -1,0 +1,80 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+buildscript {
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name "Gradle plugins"
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url 'https://repo.destroystokyo.com/repository/maven-public/'
+        }
+        maven {
+            url 'https://repo.xnity.net/repository/maven-public/'
+        }
+    }
+    dependencies  {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.3.0'
+        classpath 'org.ajoberstar:gradle-git:1.5.1'
+    }
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+ext.spigotVersion = '1.12'
+
+subprojects {
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
+    buildscript {
+        repositories {
+            mavenLocal()
+            mavenCentral()
+            jcenter()
+            maven {
+                name "Gradle plugins"
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    repositories {
+        flatDir() {
+            dirs 'libs'
+            dirs '../libs'
+        }
+        mavenCentral()
+        jcenter()
+        maven { url "http://repo.maven.apache.org/maven2" }
+
+    }
+
+    dependencies {
+        compileOnly 'org.spigotmc:spigot:' + rootProject.spigotVersion
+    }
+
+    shadowJar {
+        dependencies {
+            exclude(dependency('org.spigotmc:spigot:.*'))
+            exclude(dependency('org.spigotmc:spigot-api:.*'))
+        }
+
+    }
+
+
+}

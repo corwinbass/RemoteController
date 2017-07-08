@@ -1,0 +1,3 @@
+include 'RemoteController'
+findProject(':RemoteController')?.name = 'remotecontroller'
+

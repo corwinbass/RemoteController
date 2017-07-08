@@ -185,7 +185,7 @@ public class RemoteController extends JavaPlugin {
 				String message = args[0];
 				SummonRequest request = new SummonRequest(sender_name, message);
 				onNotificationUpdate(request);
-				sb.append(localize.getString(Type.SENDED_SUMMON_REQUEST));
+				sb.append(localize.getString(Type.SENT_SUMMON_REQUEST));
 			} else {
 				sb.append(ChatColor.GREEN);
 				sb.append("/");

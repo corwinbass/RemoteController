@@ -2,9 +2,10 @@ package hide92795.bukkit.plugin.remotecontroller.command;
 
 import hide92795.bukkit.plugin.remotecontroller.ClientConnection;
 import hide92795.bukkit.plugin.remotecontroller.RemoteController;
-import hide92795.bukkit.plugin.remotecontroller.org.apache.commons.lang3.StringUtils;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 public class CommandServerInfo implements Command {
@@ -24,8 +25,7 @@ public class CommandServerInfo implements Command {
 				datas.add(max);
 				datas.add(current);
 				datas.addAll(plugin.getAdditionalInfo());
-
-				connection.send("SERVER_INFO", pid, StringUtils.join(datas, ":"));
+				connection.send("SERVER_INFO", pid, datas.stream().collect(Collectors.joining(":")));
 			} else {
 				connection.send("ERROR", pid, "NOT_AUTH");
 			}

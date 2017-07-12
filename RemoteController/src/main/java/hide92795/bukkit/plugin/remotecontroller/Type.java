@@ -1,6 +1,6 @@
 package hide92795.bukkit.plugin.remotecontroller;
 
-import hide92795.bukkit.plugin.corelib.Localizable;
+import hide92795.bukkit.plugin.remotecontroller.util.Localizable;
 
 public enum Type implements Localizable {
 	RELOADED_SETTING("ReloadedSetting"),

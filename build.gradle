@@ -57,6 +57,7 @@ subprojects {
         flatDir() {
             dirs 'libs'
             dirs '../libs'
+            dirs '../../libs'
         }
         mavenCentral()
         jcenter()

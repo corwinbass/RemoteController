@@ -1,4 +1,4 @@
-package hide92795.bukkit.plugin.corelib;
+package hide92795.bukkit.plugin.remotecontroller.util;
 
 import java.io.File;
 import java.io.InputStream;

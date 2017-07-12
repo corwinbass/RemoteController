@@ -1,7 +1,7 @@
 package hide92795.bukkit.plugin.remotecontroller.util;
 
 import hide92795.bukkit.plugin.remotecontroller.Modifiable;
-import hide92795.bukkit.plugin.remotecontroller.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;

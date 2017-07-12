@@ -1,4 +1,4 @@
-package hide92795.bukkit.plugin.corelib;
+package hide92795.bukkit.plugin.remotecontroller.util;
 
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
@@ -15,16 +15,15 @@ public class Usage {
 	}
 
 	public void addCommand(String command, String desc) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(ChatColor.GOLD);
-		sb.append(command);
-		sb.append("\n");
+		String sb = String.valueOf(ChatColor.GOLD) +
+				command +
+				"\n" +
+				ChatColor.YELLOW +
+				"  " +
+				desc +
+				"\n";
 
-		sb.append(ChatColor.YELLOW);
-		sb.append("  ");
-		sb.append(desc);
-		sb.append("\n");
-		temp.add(sb.toString());
+		temp.add(sb);
 	}
 
 	@Override

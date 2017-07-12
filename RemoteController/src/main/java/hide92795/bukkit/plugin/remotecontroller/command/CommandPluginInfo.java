@@ -1,11 +1,11 @@
 package hide92795.bukkit.plugin.remotecontroller.command;
 
+import com.google.gson.Gson;
 import hide92795.bukkit.plugin.remotecontroller.ClientConnection;
 import hide92795.bukkit.plugin.remotecontroller.RemoteController;
-import hide92795.bukkit.plugin.remotecontroller.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import hide92795.bukkit.plugin.remotecontroller.util.Util;
 import java.util.LinkedHashMap;
-import net.arnx.jsonic.JSON;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
@@ -26,7 +26,8 @@ public class CommandPluginInfo implements Command {
 				datas.put("WEB", desc.getWebsite());
 				datas.put("DESCRIPTION", target.getDescription().getDescription());
 				datas.put("STATUS", target.isEnabled());
-				connection.send("PLUGIN_INFO", pid, JSON.encode(datas));
+				Gson gson = new Gson();
+				connection.send("PLUGIN_INFO", pid, gson.toJson(datas, LinkedHashMap.class));
 			} else {
 				connection.send("ERROR", pid, "NOT_AUTH");
 			}

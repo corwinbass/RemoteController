@@ -4,7 +4,7 @@ import hide92795.bukkit.plugin.remotecontroller.command.Command;
 import hide92795.bukkit.plugin.remotecontroller.compatibility.CommandDispatcher;
 import hide92795.bukkit.plugin.remotecontroller.compatibility.CommandDispatcherWithBukkitRunnable;
 import hide92795.bukkit.plugin.remotecontroller.notification.Notification;
-import hide92795.bukkit.plugin.remotecontroller.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;

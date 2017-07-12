@@ -1,13 +1,12 @@
 package hide92795.bukkit.plugin.remotecontroller;
 
-import hide92795.bukkit.plugin.corelib.Localize;
-import hide92795.bukkit.plugin.corelib.Usage;
+import hide92795.bukkit.plugin.remotecontroller.util.Localize;
+import hide92795.bukkit.plugin.remotecontroller.util.Usage;
 import hide92795.bukkit.plugin.remotecontroller.api.AdditionalInfo;
 import hide92795.bukkit.plugin.remotecontroller.api.AdditionalInfoCreator;
 import hide92795.bukkit.plugin.remotecontroller.api.RemoteControllerAPI;
 import hide92795.bukkit.plugin.remotecontroller.compatibility.LogRedirectWithLog4j;
 import hide92795.bukkit.plugin.remotecontroller.listener.ChatListenerWithAsyncPlayerChatEvent;
-import hide92795.bukkit.plugin.remotecontroller.listener.ChatListenerWithPlayerChatEvent;
 import hide92795.bukkit.plugin.remotecontroller.notification.Notification;
 import hide92795.bukkit.plugin.remotecontroller.notification.SummonRequest;
 import java.io.File;
@@ -88,16 +87,9 @@ public class RemoteController extends JavaPlugin {
 	}
 
 	private void startRedirectChatLog() {
-			try {
-				Class.forName("org.bukkit.event.player.AsyncPlayerChatEvent");
-				getServer().getPluginManager().registerEvents(new ChatListenerWithAsyncPlayerChatEvent(this), this);
-				chat_event_type_is_broadcast = false;
-				logger.info("Start redirect chat log with AsyncPlayerChatEvent.");
-			} catch (NoClassDefFoundError | Exception e2) {
-				getServer().getPluginManager().registerEvents(new ChatListenerWithPlayerChatEvent(this), this);
-				chat_event_type_is_broadcast = false;
-				logger.info("Start redirect chat log with PlayerChatEvent.");
-			}
+		getServer().getPluginManager().registerEvents(new ChatListenerWithAsyncPlayerChatEvent(this), this);
+		chat_event_type_is_broadcast = false;
+		logger.info("Start redirect chat log with AsyncPlayerChatEvent.");
 	}
 
 	private void createUsage() {
@@ -204,13 +196,7 @@ public class RemoteController extends JavaPlugin {
 	}
 
 	private boolean canAccessUserModifyCommand(CommandSender sender) {
-		if (config.console_only) {
-			if (sender.getName().equals(getServer().getConsoleSender().getName())) {
-				return true;
-			}
-			return false;
-		}
-		return true;
+		return !config.console_only || sender.getName().equals(getServer().getConsoleSender().getName());
 	}
 
 	private void sendUserList(CommandSender sender) {
@@ -259,7 +245,7 @@ public class RemoteController extends JavaPlugin {
 		createUsage();
 	}
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	private void loadUserData() {
 		File userdata = new File(getDataFolder(), "users.dat");
 		if (userdata.exists()) {
@@ -304,19 +290,14 @@ public class RemoteController extends JavaPlugin {
 	}
 
 	public boolean checkUser(String username, String password) {
-		if (users.containsKey(username)) {
-			if (users.get(username).equals(password)) {
-				return true;
-			}
-		}
-		return false;
+		return users.containsKey(username) && users.get(username).equals(password);
 	}
 
 	public void onConsoleLogUpdate(String message) {
 		try {
 			server.sendConsoleLog(message);
 			addConsoleLog(message);
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -376,10 +357,9 @@ public class RemoteController extends JavaPlugin {
 
 	public ArrayList<String> getAdditionalInfo() {
 		ArrayList<String> datas = new ArrayList<>();
-		for (AdditionalInfoCreator creator : additional_info_creators) {
-			AdditionalInfo info = creator.createAdditionalInfo();
-			datas.add(new String(Base64Coder.encode(info.toString().getBytes(Charset.forName("UTF-8")))));
-		}
+		additional_info_creators.forEach(creator -> {
+			datas.add(new String(Base64Coder.encode(creator.createAdditionalInfo().toString().getBytes(Charset.forName("UTF-8")))));
+		});
 		return datas;
 	}
 

@@ -2,7 +2,7 @@ package hide92795.bukkit.plugin.remotecontroller.command;
 
 import hide92795.bukkit.plugin.remotecontroller.ClientConnection;
 import hide92795.bukkit.plugin.remotecontroller.RemoteController;
-import hide92795.bukkit.plugin.remotecontroller.org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 import hide92795.bukkit.plugin.remotecontroller.util.Util;
 import java.io.File;
 

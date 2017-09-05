@@ -1,6 +1,7 @@
 package hide92795.bukkit.plugin.remotecontroller;
 
 import hide92795.bukkit.plugin.remotecontroller.command.Command;
+import hide92795.bukkit.plugin.remotecontroller.command.Commands;
 import hide92795.bukkit.plugin.remotecontroller.compatibility.CommandDispatcher;
 import hide92795.bukkit.plugin.remotecontroller.compatibility.CommandDispatcherWithBukkitRunnable;
 import hide92795.bukkit.plugin.remotecontroller.notification.Notification;

@@ -1,4 +1,4 @@
-package hide92795.bukkit.plugin.remotecontroller;
+package hide92795.bukkit.plugin.remotecontroller.command;
 
 import hide92795.bukkit.plugin.remotecontroller.command.Command;
 import hide92795.bukkit.plugin.remotecontroller.command.CommandAuthentication;

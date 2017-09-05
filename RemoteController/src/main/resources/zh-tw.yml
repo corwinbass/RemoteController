@@ -1,0 +1,18 @@
+ReloadedSetting: '&6重新加載成功.'
+ErrorReloadSetting: '&c重新加載配置時發生錯誤.'
+ChatPrefix: '&d[遠端控制]&r<%1$s>'
+Username: '用戶名稱'
+Password: '密碼'
+UsageUserAdd: '新增用戶.'
+UsageUserRemove: '移除用戶.'
+UsageUserList: '顯示用戶列表.'
+UsageReloadSetting: '重新加載配置.'
+UserNotFound: '&c找不到用戶.'
+UserAlreadyExist: '&c用戶已存在.'
+UserAddSuccess: '&a新增用戶成功.'
+UserRemoveSuccess: '&a移除用戶成功.'
+UsageSummon: '&6向管理員發出訊息.'
+Message: '訊息'
+SentSummonRequest: '&a已向管理員發出訊息.
+
+  請等待管理員回覆.'

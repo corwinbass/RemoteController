@@ -9,8 +9,7 @@ repositories {
 }
 
 dependencies {
-
+    compileOnly 'org.spigotmc:spigot:' + rootProject.spigotVersion
     compileOnly 'org.dynmap:dynmap:2.5'
     compileOnly 'com.google.code.gson:gson:2.8.1'
-
 }

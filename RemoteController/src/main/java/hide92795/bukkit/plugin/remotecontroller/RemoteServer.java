@@ -16,7 +16,6 @@ public class RemoteServer extends WebSocketServer {
 	private final RemoteController plugin;
 	private ConcurrentHashMap<Integer, ClientConnection> clients;
 
-
 	public RemoteServer(RemoteController plugin) {
 		super(new InetSocketAddress(plugin.config.port), 1, Collections.singletonList((Draft) new Draft_17()));
 		this.plugin = plugin;
@@ -58,16 +57,9 @@ public class RemoteServer extends WebSocketServer {
 			plugin.getLogger().warning("An error has occured in the connection. : " + client_socket);
 		} else {
 			plugin.getLogger().severe("An internal error has occurred.");
-			// if (ex instanceof BindException) {
-			// plugin.getLogger().severe("If you use /reload command, the remote server couldn\'t restart successfully.");
-			// plugin.getLogger().severe("Please RESTART your server.");
-			// plugin.getServer().getPluginManager().disablePlugin(plugin);
-			// return;
-			// }
 		}
 		ex.printStackTrace();
 		client_socket.close();
-		// plugin.getLogger().warning(ex.toString());
 	}
 
 	@Override
@@ -86,15 +78,7 @@ public class RemoteServer extends WebSocketServer {
 	}
 
 	public void stopServer() {
-		Set<Integer> s = clients.keySet();
-		for (Integer id : s) {
-			ClientConnection c = clients.get(id);
-			try {
-				c.close();
-			} catch (Exception | Error e) {
-				e.printStackTrace();
-			}
-		}
+		clients.forEach( (id, client) -> { try { client.close(); } catch (Exception | Error e) { e.printStackTrace(); }});
 
 		try {
 			stop();
@@ -109,29 +93,14 @@ public class RemoteServer extends WebSocketServer {
 	}
 
 	public void sendConsoleLog(String message) {
-		for (Integer id : clients.keySet()) {
-			ClientConnection connection = clients.get(id);
-			if (connection.isSendConsoleLog()) {
-				connection.send("CONSOLE", 0, message);
-			}
-		}
-	}
+		clients.forEach((id,client) -> { if (client.isSendConsoleLog()) { client.send("CONSOLE", 0, message);}});
+    }
 
 	public void sendChatLog(String message) {
-		for (Integer id : clients.keySet()) {
-			ClientConnection connection = clients.get(id);
-			if (connection.isSendChatLog()) {
-				connection.send("CHAT", 0, message);
-			}
-		}
+	    clients.forEach((id,client) -> { if (client.isSendChatLog()) { client.send("CHAT", 0, message);}});
 	}
 
 	public void sendNotificationLog(Notification notification) {
-		for (Integer id : clients.keySet()) {
-			ClientConnection connection = clients.get(id);
-			if (connection.isSendNotificationLog()) {
-				connection.send("NOTIFICATION", 0, notification.toString());
-			}
-		}
+		clients.forEach((id,client) -> { if (client.isSendNotificationLog()) { client.send("NOTIFICATION", 0, notification.toString());}});
 	}
 }

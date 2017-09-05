@@ -12,7 +12,6 @@ public class CommandPlayers implements Command {
 	public void doCommand(RemoteController plugin, ClientConnection connection, int pid, String arg) {
 		try {
 			if (connection.isAuthorized()) {
-				//String[] names = plugin.getOnlinePlayerNames();
 				String data = "";
 				if (plugin.getServer().getOnlinePlayers().size()>0) {
 					data = plugin.getServer().getOnlinePlayers().stream().map(HumanEntity::getName).collect(Collectors.joining(":"));

@@ -35,7 +35,7 @@ public class Localize {
 						LanguageConfiguration defConfig = LanguageConfiguration.loadConfiguration(defConfigStream);
 						config.setDefaults(defConfig);
 					} else {
-						plugin.getLogger().warning("Can't load Default laungage.");
+						plugin.getLogger().warning("Can't load Default language.");
 					}
 				}
 			}

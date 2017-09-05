@@ -26,10 +26,7 @@ public class NotificationManager {
 
 	public Notification[] getAll() {
 		ArrayList<Notification> all = new ArrayList<>();
-		for (String uuid : keys) {
-			Notification notification = datas.get(uuid);
-			all.add(notification);
-		}
+		keys.forEach(uuid -> all.add(datas.get(uuid)));
 		return all.toArray(new Notification[all.size()]);
 	}
 

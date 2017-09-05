@@ -25,7 +25,6 @@ public class LanguageConfiguration extends YamlConfiguration {
 		StringBuilder builder = new StringBuilder();
 		BufferedReader input = new BufferedReader(reader);
 
-
 		try {
 			String line;
 
@@ -36,7 +35,6 @@ public class LanguageConfiguration extends YamlConfiguration {
 		} finally {
 			input.close();
 		}
-
 		loadFromString(builder.toString());
 	}
 

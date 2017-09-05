@@ -1,11 +1,10 @@
 package hide92795.bukkit.plugin.remotecontroller;
 
+import hide92795.bukkit.plugin.remotecontroller.compatibility.LogAppender;
 import hide92795.bukkit.plugin.remotecontroller.util.Localize;
 import hide92795.bukkit.plugin.remotecontroller.util.Usage;
-import hide92795.bukkit.plugin.remotecontroller.api.AdditionalInfo;
 import hide92795.bukkit.plugin.remotecontroller.api.AdditionalInfoCreator;
 import hide92795.bukkit.plugin.remotecontroller.api.RemoteControllerAPI;
-import hide92795.bukkit.plugin.remotecontroller.compatibility.LogRedirectWithLog4j;
 import hide92795.bukkit.plugin.remotecontroller.listener.ChatListenerWithAsyncPlayerChatEvent;
 import hide92795.bukkit.plugin.remotecontroller.notification.Notification;
 import hide92795.bukkit.plugin.remotecontroller.notification.SummonRequest;
@@ -22,8 +21,9 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -74,16 +74,9 @@ public class RemoteController extends JavaPlugin {
 	}
 
 	private void startRedirectConsoleLog() {
-		try {
-			Class.forName("org.apache.logging.log4j.LogManager");
-			LogRedirectWithLog4j.regist(this);
-			logger.info("Start redirect console log with log4j.");
-		} catch (NoClassDefFoundError | Exception e) {
-			LogHandler handler = new LogHandler(this);
-			handler.setLevel(Level.ALL);
-			getServer().getLogger().addHandler(handler);
-			logger.info("Start redirect console log with Java Logging API.");
-		}
+		org.apache.logging.log4j.core.Logger logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
+		logger.addAppender(new LogAppender(this));
+		logger.info("Start redirect console log with log4j.");
 	}
 
 	private void startRedirectChatLog() {
